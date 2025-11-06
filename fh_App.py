@@ -3,7 +3,7 @@ import streamlit as st
 import pickle
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import os
 # used chat gpt for general syntax help
 
 # Suppress warnings
@@ -14,6 +14,8 @@ warnings.filterwarnings("ignore")
 st.title('Fetal Health Classification: A Machine Learning App')
 st.image('fetal_health_image.gif')
 
+# Get path relative to current script
+BASE_DIR = os.path.dirname(__file__)
 
 
 
@@ -29,8 +31,10 @@ input_type = st.sidebar.radio("Select Model", ("Decision Tree", "Random Forest",
 
 if input_type=="Decision Tree":
     # Load the pre-trained model from the pickle file
-    dt_pickle = open('decision_tree_fh.pickle', 'rb') 
-    clf = pickle.load(dt_pickle) 
+    pickle_path = os.path.join(BASE_DIR, "decision_tree_fh.pickle")
+    with open(pickle_path, "rb") as dt_pickle:
+        #dt_pickle = open('decision_tree_fh.pickle', 'rb') 
+        clf = pickle.load(dt_pickle) 
     dt_pickle.close()
 if input_type=="Random Forest":
     rf_pickle = open('random_forest_fh.pickle', 'rb') 
