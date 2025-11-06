@@ -37,16 +37,22 @@ if input_type=="Decision Tree":
         clf = pickle.load(dt_pickle) 
     dt_pickle.close()
 if input_type=="Random Forest":
-    rf_pickle = open('random_forest_fh.pickle', 'rb') 
-    clf = pickle.load(rf_pickle) 
+    pickle_path = os.path.join(BASE_DIR, "random_forest_fh.pickle")
+    #rf_pickle = open('random_forest_fh.pickle', 'rb') 
+    with open(pickle_path, "rb") as rf_pickle:
+        clf = pickle.load(rf_pickle) 
     rf_pickle.close()
 if input_type=="AdaBoost":
-    Ada_pickle = open('AdaBoost_fh.pickle', 'rb')
-    clf = pickle.load(Ada_pickle)
+    pickle_path = os.path.join(BASE_DIR, "AdaBoost_fh.pickle")
+    #Ada_pickle = open('AdaBoost_fh.pickle', 'rb')
+    with open(pickle_path, "rb") as Ada_pickle:
+        clf = pickle.load(Ada_pickle)
     Ada_pickle.close()
 if input_type=="Soft Voting Classifier":
-    SV_pickle = open('SoftVote_fh.pickle', 'rb')
-    clf = pickle.load(SV_pickle)
+    pickle_path = os.path.join(BASE_DIR, "SoftVote_fh.pickle")
+    #SV_pickle = open('SoftVote_fh.pickle', 'rb')
+    with open(pickle_path, "rb") as SV_pickle:
+        clf = pickle.load(SV_pickle)
     SV_pickle.close()
     #print("Soft Voting Classifier not implemented yet")
 
