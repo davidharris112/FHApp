@@ -438,7 +438,7 @@ if input_type=="Soft Voting Classifier":
 
         # Showing additional items in tabs
     st.subheader("Model Performance")
-    tab1 = st.tabs(["Feature Importance"])
+    tab1, = st.tabs(["Feature Importance"])
 
     # Tab 1: Feature Importance Visualization
     with tab1:
