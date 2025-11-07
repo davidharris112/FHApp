@@ -436,23 +436,11 @@ if input_type=="Soft Voting Classifier":
     with st.expander("Predicted Fetal Health"):
         st.dataframe(styled_df, use_container_width=True)
 
-    #     # Showing additional items in tabs
-    # st.subheader("Model Performance")
-    # tab1, tab2, tab3 = st.tabs(["Feature Importance", "Confusion Matrix", "Classification Report"])
+        # Showing additional items in tabs
+    st.subheader("Model Performance")
+    tab1 = st.tabs(["Feature Importance"])
 
-    # # Tab 1: Feature Importance Visualization
-    # with tab1:
-    #     st.write("### Feature Importance")
-    #     st.image('feature_imp_Ada.svg')
-
-    # # Tab 2: Confusion Matrix
-    # with tab2:
-    #     st.write("### Confusion Matrix")
-    #     st.image('confusion_mat_Ada.svg')    
-
-    # # Tab 3: Classification Report
-    # with tab3:
-    #     st.write("### Classification Report")
-    #     report_df = pd.read_csv('class_report_Ada.csv', index_col = 0).transpose()
-    #     st.dataframe(report_df.style.background_gradient(cmap='RdBu').format(precision=2))
-    #     st.caption("Classification Report: Precision, Recall, F1-Score, and Support for each species.")
+    # Tab 1: Feature Importance Visualization
+    with tab1:
+        st.write("### Feature Importance")
+        st.image('feature_imp_sv.svg')
