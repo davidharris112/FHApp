@@ -69,7 +69,7 @@ if csv is not None:
     fh_df = pd.read_csv(csv)
 
 if input_type=="Decision Tree":
-    st.subheader("Predicting Fetal Health Class Using Random Forest Model")
+    st.subheader("Predicting Fetal Health Class Using Decision Tree Model")
     # add Prediction Probability Column 
     for index, row in fh_df.iterrows():
 
@@ -113,7 +113,7 @@ if input_type=="Decision Tree":
         fh_df.loc[index, "Predicted Probability"] = predicted_class_proba
 
 
-    # NOTE used chat gpt for these 
+    # NOTE used chat gpt for the color map and replacement lines 
     fh_df["Predicted Fetal Health"] = fh_df["Predicted Fetal Health"].replace({
         1: "Normal",
         2: "Suspect",
@@ -171,6 +171,7 @@ if input_type=="Decision Tree":
 
 if input_type=="Random Forest":
     for index, row in fh_df.iterrows():
+        st.subheader("Predicting Fetal Health Class Using Random Forest Model")
 
         baseline_value = fh_df.loc[index, 'baseline value']
         accelerations = fh_df.loc[index, 'accelerations']
