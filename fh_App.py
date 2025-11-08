@@ -4,7 +4,10 @@ import pickle
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
-# used chat gpt for general syntax help
+
+
+# A lot of the sections and variables could probably be condensed in order to reduce complexity and increase readability
+
 
 # Suppress warnings
 import warnings
@@ -14,9 +17,11 @@ warnings.filterwarnings("ignore")
 st.title('Fetal Health Classification: A Machine Learning App')
 st.image('fetal_health_image.gif')
 
-# Get path relative to current script
-BASE_DIR = os.path.dirname(__file__)
 
+
+# Get path relative to current script
+    # NOTE this was from one of my previous apps, but the initial idea from from ChatGPT and solved an issue with deploying the app on streamlit
+BASE_DIR = os.path.dirname(__file__)
 
 
 with st.sidebar:
@@ -54,10 +59,9 @@ if input_type=="Soft Voting Classifier":
     with open(pickle_path, "rb") as SV_pickle:
         clf = pickle.load(SV_pickle)
     SV_pickle.close()
-    #print("Soft Voting Classifier not implemented yet")
 
+# formatting from streamlit documentation example
 st.sidebar.markdown(f":blue-badge[:material/check: You selected {input_type}]")
-
 
 st.write("Utilize our advanced Machine Learning application to predict fetal health classifications.")
 
@@ -73,6 +77,7 @@ if input_type=="Decision Tree":
     # add Prediction Probability Column 
     for index, row in fh_df.iterrows():
 
+        # NOTE a lot of the work in this block was done with ChatGPT acting as an autofill
         baseline_value = fh_df.loc[index, 'baseline value']
         accelerations = fh_df.loc[index, 'accelerations']
         fetal_movement = fh_df.loc[index, 'fetal_movement']
@@ -100,20 +105,18 @@ if input_type=="Decision Tree":
         # Using predict() with new data provided by the csv
         new_prediction = clf.predict([[baseline_value,accelerations,fetal_movement,uterine_contractions,light_decelerations,severe_decelerations,prolongued_decelerations,abnormal_short_term_variability,mean_value_of_short_term_variability,percentage_of_time_with_abnormal_long_term_variability,mean_value_of_long_term_variability,histogram_width,histogram_min,histogram_max,histogram_number_of_peaks,histogram_number_of_zeroes,histogram_mode,histogram_mean,histogram_median,histogram_variance,histogram_tendency]]) 
 
-
         #  Predict class probabilities
         proba = clf.predict_proba(features)[0]
         # Get probability of the predicted class
         class_index = list(clf.classes_).index(new_prediction[0])
         predicted_class_proba = proba[class_index]
 
-
         # Store the predicted species & probability
         fh_df.loc[index, "Predicted Fetal Health"] = new_prediction[0]
         fh_df.loc[index, "Predicted Probability"] = predicted_class_proba
 
-
-    # NOTE used chat gpt for the color map and replacement lines 
+    # NOTE used ChatGPT to help with this replacement and the color map
+        # these lines are copy/pasted to the other model sections
     fh_df["Predicted Fetal Health"] = fh_df["Predicted Fetal Health"].replace({
         1: "Normal",
         2: "Suspect",
@@ -134,7 +137,8 @@ if input_type=="Decision Tree":
                         'histogram_variance', 'histogram_tendency',
                         'Predicted Fetal Health', 'Predicted Probability']]
 
-    # 
+    # NOTE used ChatGPT for help with colormap and dataframe cell colors
+        # these lines are copy/pasted to the other model sections
     styled_df = display_df.style.applymap(
         lambda val: f'background-color: {color_map.get(val, "white")}',
         subset=['Predicted Fetal Health']
@@ -143,7 +147,7 @@ if input_type=="Decision Tree":
     with st.expander("Predicted Fetal Health"):
         st.dataframe(styled_df, use_container_width=True)
 
-        # Showing additional items in tabs
+    # Showing additional items in tabs
     st.subheader("Model Performance")
     tab1, tab2, tab3, tab4 = st.tabs(["Decision Tree", "Feature Importance", "Confusion Matrix", "Classification Report"])
 
@@ -212,7 +216,7 @@ if input_type=="Random Forest":
         fh_df.loc[index, "Predicted Probability"] = predicted_class_proba
 
     
-    # NOTE used chat gpt for these 
+    
     fh_df["Predicted Fetal Health"] = fh_df["Predicted Fetal Health"].replace({
         1: "Normal",
         2: "Suspect",
@@ -364,7 +368,7 @@ if input_type=="AdaBoost":
 
 if input_type=="Soft Voting Classifier":
     st.subheader("Predicting Fetal Health Class Using Soft Voting Classifier Model")
-    # add Prediction Probability Column 
+     
     for index, row in fh_df.iterrows():
 
         baseline_value = fh_df.loc[index, 'baseline value']
@@ -407,7 +411,7 @@ if input_type=="Soft Voting Classifier":
         fh_df.loc[index, "Predicted Probability"] = predicted_class_proba
 
 
-    # NOTE used chat gpt for these 
+    
     fh_df["Predicted Fetal Health"] = fh_df["Predicted Fetal Health"].replace({
         1: "Normal",
         2: "Suspect",
