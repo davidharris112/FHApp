@@ -170,8 +170,8 @@ if input_type=="Decision Tree":
         st.caption("Classification Report: Precision, Recall, F1-Score, and Support for each species.")
 
 if input_type=="Random Forest":
+    st.subheader("Predicting Fetal Health Class Using Random Forest Model")
     for index, row in fh_df.iterrows():
-        st.subheader("Predicting Fetal Health Class Using Random Forest Model")
 
         baseline_value = fh_df.loc[index, 'baseline value']
         accelerations = fh_df.loc[index, 'accelerations']
